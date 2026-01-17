@@ -1,0 +1,14 @@
+FINAL PROJECT FOR 
+LINEAR ALGEBRA AND MATRIX THEORY
+
+Group 2: Orthonormal Basis Finder
+
+Submitted by:
+- Cordova, Jamaya Zakeus N.
+- David, Albert Kristian V.
+- Navarro, Divino L.
+- Mislang, Gil Robert M. 
+- Remolacio, Alexandra Geane M.
+
+Submitted to:
+Professor John Patrick B. Sta. Maria
