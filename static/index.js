@@ -29,6 +29,18 @@ function createTable() {
     const labels = document.createElement("thead");
     const labelRow = document.createElement("tr");
 
+    if(column.value === "" || row.value === "") {
+      return;
+    } else if(column.value > 7 || row.value > 7) {
+      alert("Input Error: The orthonormal basis finder can't calculate more than 7 dimensions");
+      column.value = 7;
+      row.value = 7;
+    } else if(column.value < 1 || row.value < 1) {
+      alert("Input Error: Please input a positive integer");
+      column.value = 1;
+      row.value = 1;
+    }
+
     for(let j = 0; j < column.value; j++) {
       const newHeader = document.createElement("th");
 
@@ -96,11 +108,18 @@ function addToHistory(data) {
 //Actual Computations
 function SendRequest() {
   const matrix = document.querySelector(".Matrix table");
+    
+  if(!matrix) {
+    alert("Please input the desired dimensions");
+    return;
+  } 
+
     const rows = matrix.rows.length;
     const cols = matrix.rows[0].cells.length;
 
     let matrix_input = [];
     let flag = false;
+
 
     for (let i = 1; i < rows; i++) {
     let row = [];
@@ -118,6 +137,7 @@ function SendRequest() {
 
     if(flag) {
       alert("No Input Entered");
+      return;
     }
 
 fetch("/Group2", {
