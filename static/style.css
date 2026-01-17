@@ -178,12 +178,9 @@ main {
   padding-left: 0;
 }
 
-.output math {
-  margin-top: 10px;
-}
-
-.output {
+.output div{
   font-size: 15px;
+  margin-top: 10px;
 }
 
 .info-box h4 {

@@ -36,10 +36,8 @@
 
         <button class="compute-btn" id="compute-btn">Compute Basis</button>
 
-        <div class="output" id="output">
-          <math xmlns="https://www.w3.org/1998/Math/MathML/">
-          </math>
-        </div>
+        <div class="output" id="output"></div>
+
       </section>
 
       <aside class="sidebar">
@@ -61,6 +59,10 @@
       </aside>
     </main>
   </div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
 
   <script src="{{ url_for('static', filename='index.js') }}"></script>       
 </body>

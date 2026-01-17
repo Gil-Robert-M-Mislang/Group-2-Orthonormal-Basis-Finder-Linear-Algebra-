@@ -3,16 +3,22 @@ const row_inputs = document.querySelectorAll(".row");
 const span_texts = document.getElementsByClassName("number");
 const sup_texts = document.getElementsByClassName("exponent");
 
+row_inputs.forEach(input => {
+  input.addEventListener("input", (event) => {
+    const value = event.target.value;
+
+    for (let sup of sup_texts) {
+      sup.textContent = value;
+    }
+  });
+});
+
 column_inputs.forEach(input => {
   input.addEventListener("input", (event) => {
     const value = event.target.value;
 
     for (let span of span_texts) {
       span.textContent = value;
-    }
-
-    for (let sup of sup_texts) {
-      sup.textContent = value;
     }
   });
 });
@@ -155,8 +161,6 @@ fetch("/Group2", {
 const button = document.querySelector(".compute-btn");
 button.addEventListener("click", SendRequest);
 
-
-
 function displayResult(data) {
   const resultContainer = document.getElementById("output");
   resultContainer.innerHTML = "";
@@ -175,27 +179,24 @@ function displayResult(data) {
   data.result.forEach((row, index) => {
     const rowDiv = document.createElement("div");
 
-    const formattedRow = row.map(val => {
-        val = String(val);
-        val = val.replace(/sqrt\(([^)]+)\)\/(\d+)/g, (match, numerator, denominator) => {
-            return `<mfrac><msqrt><mn>${numerator}</mn></msqrt><mn>${denominator}</mn></mfrac>`;
-        })
-        .replace(/sqrt\(([^)]+)\)/g, (match, num) => `<msqrt><mn>${num}</mn></msqrt>`)
-        .replace(/^(\d+)$/g, '<mn>$1</mn>');
-        
-        return `<mspace width="0.3em"/>${val}<mspace width="0.3em"/>`; 
-    });
+    let latex = `\\mathbf{v}_{${index + 1}} = \\begin{bmatrix}`;
+    latex += row.map(val => {
+      if (/sqrt\(([^)]+)\)\/(\d+)/.test(val)) {
+        return val.replace(/sqrt\(([^)]+)\)\/(\d+)/, "\\frac{\\sqrt{$1}}{$2}");
+      } else if (/sqrt\(([^)]+)\)/.test(val)) {
+        return val.replace(/sqrt\(([^)]+)\)/, "\\sqrt{$1}");
+      } else {
+        return val; 
+      }
+    }).join(" \\\\ "); 
+    latex += "\\end{bmatrix}";
 
-
-    
-    rowDiv.innerHTML = `v${index + 1} = [ <math xmlns="http://www.w3.org/1998/Math/MathML">${formattedRow.join(",")}</math> ]<br>`;
+    katex.render(latex, rowDiv, { throwOnError: false });
     resultContainer.appendChild(rowDiv);
 
     addToHistory(rowDiv.innerHTML);
-
-
   });
-  
-  let line = document.createElement("hr");
+
+  const line = document.createElement("hr");
   history_box.appendChild(line);
 }
