@@ -1,1 +1,0 @@
-# Group-2-Orthonormal-Basis-Finder-Linear-Algebra-
